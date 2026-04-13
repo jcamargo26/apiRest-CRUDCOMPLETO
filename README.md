@@ -261,8 +261,3 @@ apiRest-CRUDCOMPLETO/
 ```
 
 ---
-
-## Informações do trabalho
-
-Trabalho 2 — Disciplina de Desenvolvimento de APIs  
-Valor: 30% da nota | Entrega: 13/04/2026
