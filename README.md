@@ -1,44 +1,39 @@
-# API de Livros
+API REST - CRUD Completo de Livros
+API REST desenvolvida em Node.js com Express para gerenciamento de livros. Permite criar, listar, atualizar e deletar registros, com validações e tratamento de erros em todos os endpoints.
 
-## Descrição
+Tecnologias utilizadas no projeto:
 
-Esta é uma API REST desenvolvida em Node.js utilizando o framework Express.
-A aplicação permite o cadastro e a listagem de livros, com validações básicas nos dados de entrada.
+Node.js
+Express
+Postman
 
----
 
-## Tecnologias utilizadas
+Como executar
+Pré-requisitos: Node.js v14 ou superior e npm instalados.
+Clone o repositório
+git clone https://github.com/jcamargo26/apiRest-CRUDCOMPLETO.git
 
--Node.js 
--Express 
--Postman 
+cd apiRest-CRUDCOMPLETO
 
----
+npm install
 
-## Endpoints
+npm run dev
+A API estará disponível em http://localhost:3000.
 
-### GET /livros
-
-**Descrição:**
+Endpoints
+GET /livros
 Retorna a lista de todos os livros cadastrados.
 
-URL:
-http://localhost:3000/livros
+URL: http://localhost:3000/livros
+Método: GET
+Body: Não necessário
 
-Método: 
-GET
-
-Body: 
-Não possui
-
-exemplo:
-
-```json
-[
+Resposta de sucesso 200:
+json[
   {
     "id": 1,
-    "titulo": "Harry Potter",
-    "autor": "J.K Rowling",
+    "titulo": "Harry Potter e a Pedra Filosofal",
+    "autor": "J.K. Rowling",
     "ano": 1997
   },
   {
@@ -48,104 +43,126 @@ exemplo:
     "ano": 1949
   }
 ]
-```
 
----
+GET /livros/:id
+Retorna um único livro pelo ID.
 
-### POST /livros
+URL: http://localhost:3000/livros/:id
+Método: GET
+Body: Não necessário
 
-Descrição: 
-Cria um novo livro na aplicação.
-
-URL: 
-http://localhost:3000/livros
-
-Método: 
-POST
-
-Body:
-
-```json
-{
-  "titulo": "Nome do livro",
-  "autor": "Nome do autor",
-  "ano": 2020
-}
-```
-
-Exemplo: 
-
-```json
-{
+Resposta de sucesso 200:
+json{
   "id": 1,
-  "titulo": "Nome do livro",
-  "autor": "Nome do autor",
-  "ano": 2020
+  "titulo": "Harry Potter e a Pedra Filosofal",
+  "autor": "J.K. Rowling",
+  "ano": 1997
 }
-```
+Livro não encontrado 404:
+json{
+  "erro": "Livro não encontrado"
+}
 
----
+POST /livros
+Cadastra um novo livro.
 
-## Validações implementadas
+URL: http://localhost:3000/livros
+Método: POST
+Content-Type: application/json
 
-A API realiza validações básicas nos dados enviados no endpoint POST:
+Body da requisição:
+json{
+  "titulo": "O Senhor dos Anéis",
+  "autor": "J.R.R. Tolkien",
+  "ano": 1954
+}
+Resposta de sucesso 201:
+json{
+  "id": 11,
+  "titulo": "O Senhor dos Anéis",
+  "autor": "J.R.R. Tolkien",
+  "ano": 1954
+}
+Dados inválidos 400:
+json{
+  "erro": "Os campos titulo, autor e ano são obrigatórios"
+}
 
-* O campo **titulo** é obrigatório
-* O campo **autor** é obrigatório
-* O campo **ano** deve ser do tipo numérico
+PUT /livros/:id
+Atualiza os dados de um livro existente.
 
-Caso alguma dessas validações falhe, a API retorna um erro com status 400.
+URL: http://localhost:3000/livros/:id
+Método: PUT
+Content-Type: application/json
 
---PRINTS--
+Body da requisição:
+json{
+  "titulo": "O Senhor dos Anéis - Edição Revisada",
+  "autor": "J.R.R. Tolkien",
+  "ano": 1954
+}
+Resposta de sucesso 200:
+json{
+  "id": 11,
+  "titulo": "O Senhor dos Anéis - Edição Revisada",
+  "autor": "J.R.R. Tolkien",
+  "ano": 1954
+}
+Livro não encontrado 404:
+json{
+  "erro": "Livro não encontrado"
+}
 
-- Exemplo de erro (ausência de ano).
-- Exemplo de requisição feita com sucesso.
-## Capturas de tela
+DELETE /livros/:id
+Remove um livro pelo ID.
 
-### Requisição POST - Sucesso
+URL: http://localhost:3000/livros/:id
+Método: DELETE
+Body: Não necessário
 
-Exemplo de criação de um livro com dados válidos:
+Resposta de sucesso 200:
+json{
+  "mensagem": "Livro deletado com sucesso"
+}
+Livro não encontrado 404:
+json{
+  "erro": "Livro não encontrado"
+}
 
-![POST Sucesso](./images/requisicao_correta.png)
+Validações
+As validações são aplicadas nos endpoints POST e PUT. Em caso de falha, a API retorna status 400 com uma mensagem descritiva do erro.
+CampoRegratituloObrigatório, não pode ser vazioautorObrigatório, não pode ser vazioanoObrigatório, deve ser numérico
 
----
+Status Codes
+CódigoDescrição200Requisição bem-sucedida201Recurso criado com sucesso400Dados inválidos ou ausentes404Recurso não encontrado
 
-### Requisição POST - Erro de validação
+Registros iniciais
+A API inicia com 10 livros pré-cadastrados:
+IDTítuloAutorAno1Harry Potter e a Pedra FilosofalJ.K. Rowling199721984George Orwell19493O Senhor dos AnéisJ.R.R. Tolkien19544Dom QuixoteMiguel de Cervantes16055O Pequeno PríncipeAntoine de Saint-Exupéry19436A Revolução dos BichosGeorge Orwell19457Cem Anos de SolidãoGabriel García Márquez19678O HobbitJ.R.R. Tolkien19379Fahrenheit 451Ray Bradbury195310O Código Da VinciDan Brown2003
 
-Exemplo de erro ao enviar dados inválidos (validação):
+Testes no Postman
+A collection com todos os testes está disponível no arquivo My Collection.postman_collection.json, incluído na raiz do repositório.
+Como importar: abra o Postman, clique em Import e selecione o arquivo.
+Requisições cobertas:
 
-![POST Erro](./images/erro_validacao.png)
-
-
-## Testes no Postman
-
-Foram realizados testes utilizando o Postman para validação do funcionamento da API:
-
-* Criação de livros (POST)
-* Listagem de livros (GET)
-* Testes de validação com dados inválidos
-
-
-## Collection do Postman
-
-A collection contendo todas as requisições utilizadas nos testes foi exportada e incluída na entrega do trabalho.
-
----
-
-## Execução do projeto
-
-Para executar a API localmente:
-
-```bash
-npm install
-npm run dev
-```
-
-A aplicação estará disponível em:
-
-http://localhost:3000
+GET /livros — listar todos os livros
+GET /livros/:id — buscar por ID válido
+GET /livros/:id — buscar por ID inexistente (404)
+POST /livros — criar livro com dados válidos
+POST /livros — criar livro sem campos obrigatórios (400)
+POST /livros — criar livro com ano inválido (400)
+PUT /livros/:id — atualizar livro existente
+PUT /livros/:id — atualizar livro inexistente (404)
+DELETE /livros/:id — deletar livro existente
+DELETE /livros/:id — deletar livro inexistente (404)
 
 
-## Considerações finais
-
-Este projeto tem como objetivo demonstrar a criação de uma API REST simples, incluindo definição de endpoints, validações de dados e testes utilizando ferramentas apropriadas.
+Estrutura do projeto
+apiRest-CRUDCOMPLETO/
+├── api-livros/
+├── node_modules/
+├── index.js
+├── package.json
+├── package-lock.json
+├── My Collection.postman_collection.json
+└── README.md
