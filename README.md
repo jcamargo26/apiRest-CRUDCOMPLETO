@@ -46,15 +46,15 @@ Resposta de sucesso `200`:
 [
   {
     "id": 1,
-    "titulo": "Harry Potter e a Pedra Filosofal",
-    "autor": "J.K. Rowling",
-    "ano": 1997
+    "titulo": "Duna",
+    "autor": "Frank Herbert",
+    "ano": 1965
   },
   {
     "id": 2,
-    "titulo": "1984",
-    "autor": "George Orwell",
-    "ano": 1949
+    "titulo": "Os Irmãos Karamazov",
+    "autor": "Fiódor Dostoiévski",
+    "ano": 1880
   }
 ]
 ```
@@ -73,9 +73,9 @@ Resposta de sucesso `200`:
 ```json
 {
   "id": 1,
-  "titulo": "Harry Potter e a Pedra Filosofal",
-  "autor": "J.K. Rowling",
-  "ano": 1997
+  "titulo": "Duna",
+  "autor": "Frank Herbert",
+  "ano": 1965
 }
 ```
 
@@ -99,9 +99,9 @@ Cadastra um novo livro.
 Body da requisição:
 ```json
 {
-  "titulo": "O Senhor dos Anéis",
-  "autor": "J.R.R. Tolkien",
-  "ano": 1954
+  "titulo": "Fundação",
+  "autor": "Isaac Asimov",
+  "ano": 1951
 }
 ```
 
@@ -109,9 +109,9 @@ Resposta de sucesso `201`:
 ```json
 {
   "id": 11,
-  "titulo": "O Senhor dos Anéis",
-  "autor": "J.R.R. Tolkien",
-  "ano": 1954
+  "titulo": "Fundação",
+  "autor": "Isaac Asimov",
+  "ano": 1951
 }
 ```
 
@@ -135,9 +135,9 @@ Atualiza os dados de um livro existente.
 Body da requisição:
 ```json
 {
-  "titulo": "O Senhor dos Anéis - Edição Revisada",
-  "autor": "J.R.R. Tolkien",
-  "ano": 1954
+  "titulo": "Fundação e Império",
+  "autor": "Isaac Asimov",
+  "ano": 1952
 }
 ```
 
@@ -145,9 +145,9 @@ Resposta de sucesso `200`:
 ```json
 {
   "id": 11,
-  "titulo": "O Senhor dos Anéis - Edição Revisada",
-  "autor": "J.R.R. Tolkien",
-  "ano": 1954
+  "titulo": "Fundação e Império",
+  "autor": "Isaac Asimov",
+  "ano": 1952
 }
 ```
 
@@ -211,18 +211,18 @@ As validações são aplicadas nos endpoints `POST` e `PUT`. Em caso de falha, a
 
 A API inicia com 10 livros pré-cadastrados:
 
-| ID | Título                           | Autor                    | Ano  |
-|----|----------------------------------|--------------------------|------|
-| 1  | Harry Potter e a Pedra Filosofal | J.K. Rowling             | 1997 |
-| 2  | 1984                             | George Orwell            | 1949 |
-| 3  | O Senhor dos Anéis               | J.R.R. Tolkien           | 1954 |
-| 4  | Dom Quixote                      | Miguel de Cervantes      | 1605 |
-| 5  | O Pequeno Príncipe               | Antoine de Saint-Exupéry | 1943 |
-| 6  | A Revolução dos Bichos           | George Orwell            | 1945 |
-| 7  | Cem Anos de Solidão              | Gabriel García Márquez   | 1967 |
-| 8  | O Hobbit                         | J.R.R. Tolkien           | 1937 |
-| 9  | Fahrenheit 451                   | Ray Bradbury             | 1953 |
-| 10 | O Código Da Vinci                | Dan Brown                | 2003 |
+| ID | Título                                              | Autor                    | Ano  |
+|----|-----------------------------------------------------|--------------------------|------|
+| 1  | Duna                                                | Frank Herbert            | 1965 |
+| 2  | Os Irmãos Karamazov                                 | Fiódor Dostoiévski       | 1880 |
+| 3  | O Problema dos Três Corpos                          | Cixin Liu                | 2008 |
+| 4  | Neuromancer                                         | William Gibson           | 1984 |
+| 5  | Cem Anos de Solidão                                 | Gabriel García Márquez   | 1967 |
+| 6  | O Guia do Mochileiro das Galáxias                   | Douglas Adams            | 1979 |
+| 7  | Fundação                                            | Isaac Asimov             | 1951 |
+| 8  | Crime e Castigo                                     | Fiódor Dostoiévski       | 1866 |
+| 9  | Blade Runner: Do Androids Dream of Electric Sheep?  | Philip K. Dick           | 1968 |
+| 10 | O Silmarillion                                      | J.R.R. Tolkien           | 1977 |
 
 ---
 
