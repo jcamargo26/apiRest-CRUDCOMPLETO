@@ -1,7 +1,7 @@
 API REST - CRUD Completo de Livros
 API REST desenvolvida em Node.js com Express para gerenciamento de livros. Permite criar, listar, atualizar e deletar registros, com validações e tratamento de erros em todos os endpoints.
 
-Tecnologias utilizadas no projeto:
+Tecnologias
 
 Node.js
 Express
@@ -10,7 +10,7 @@ Postman
 
 Como executar
 Pré-requisitos: Node.js v14 ou superior e npm instalados.
-Clone o repositório
+bash# Clone o repositório
 git clone https://github.com/jcamargo26/apiRest-CRUDCOMPLETO.git
 
 cd apiRest-CRUDCOMPLETO
