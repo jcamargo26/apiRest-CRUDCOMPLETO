@@ -1,97 +1,93 @@
-
-
-// 1. Importar Express
 const express = require('express');
-
-// 2. Criar aplicação
 const app = express();
-
-// 3. Definir porta
 const PORT = 3000;
 
-// 4. Middleware para JSON
 app.use(express.json());
 
-let livros = [];
-let id = 1;
+// 1. Mínimo 10 registros iniciais (Requisito do trabalho)
+let livros = [
+    { id: 1, titulo: "Duna", autor: "Frank Herbert", ano: 1965 },
+    { id: 2, titulo: "Os Irmãos Karamazov", autor: "Fiódor Dostoiévski", ano: 1880 },
+    { id: 3, titulo: "O Problema dos Três Corpos", autor: "Cixin Liu", ano: 2008 },
+    { id: 4, titulo: "Neuromancer", autor: "William Gibson", ano: 1984 },
+    { id: 5, titulo: "Cem Anos de Solidão", autor: "Gabriel García Márquez", ano: 1967 },
+    { id: 6, titulo: "O Guia do Mochileiro das Galáxias", autor: "Douglas Adams", ano: 1979 },
+    { id: 7, titulo: "Fundação", autor: "Isaac Asimov", ano: 1951 },
+    { id: 8, titulo: "Crime e Castigo", autor: "Fiódor Dostoiévski", ano: 1866 },
+    { id: 9, titulo: "Blade Runner: Do Androids Dream of Electric Sheep?", autor: "Philip K. Dick", ano: 1968 },
+    { id: 10, titulo: "O Silmarillion", autor: "J.R.R. Tolkien", ano: 1977 }
+];
+let proximoId = 11;
+
+// GET - Listar todos
 app.get('/livros', (req, res) => {
-  res.json(livros);
+    res.json(livros);
 });
+
+// GET - Buscar por ID (Boa prática)
+app.get('/livros/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const livro = livros.find(l => l.id === id);
+    if (!livro) return res.status(404).json({ erro: "Livro não encontrado" });
+    res.json(livro);
+});
+
+// POST - Criar livro
 app.post('/livros', (req, res) => {
-  const { titulo, autor, ano } = req.body;
+    const { titulo, autor, ano } = req.body;
 
-  // validações
-  if (!titulo) {
-    return res.status(400).json({ erro: "Título é um campo obrigatório." });
-  }
+    // Validações completas
+    if (!titulo || !autor || typeof ano !== 'number') {
+        return res.status(400).json({ erro: "Dados inválidos. Verifique título, autor e ano." });
+    }
 
-  if (!autor) {
-    return res.status(400).json({ erro: "Autor é um campo obrigatório." });
-  }
-
-  if (typeof ano !== 'number') {
-    return res.status(400).json({ erro: "Ano deve ser digitado com números inteiros" });
-  }
-
-  const novoLivro = {
-    id: id++,
-    titulo,
-    autor,
-    ano
-  };
-
-  livros.push(novoLivro);
-
-  res.status(201).json(novoLivro);
+    const novoLivro = { id: proximoId++, titulo, autor, ano };
+    livros.push(novoLivro);
+    res.status(201).json(novoLivro);
 });
 
-app.post('/livros', (req, res) => {
-  const { titulo, autor, ano } = req.body;
+// PUT - Atualizar livro
+app.put('/livros/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { titulo, autor, ano } = req.body;
 
-  // validações
-  if (!titulo) {
-    return res.status(400).json({ erro: "Título é um campo obrigatório" });
-  }
+    const index = livros.findIndex(l => l.id === id);
+    
+    if (index === -1) {
+        return res.status(404).json({ erro: "Livro não encontrado para atualização" });
+    }
 
-  if (!autor) {
-    return res.status(400).json({ erro: "Autor é um campo obrigatório" });
-  }
+    // Validação dos dados novos
+    if (!titulo || !autor || typeof ano !== 'number') {
+        return res.status(400).json({ erro: "Dados inválidos para atualização" });
+    }
 
-  if (typeof ano !== 'number') {
-    return res.status(400).json({ erro: "Ano deve ser um número inteiro!" });
-  }
-
-  const novoLivro = {
-    id: id++,
-    titulo,
-    autor,
-    ano
-  };
-
-  livros.push(novoLivro);
-
-  res.status(201).json(novoLivro);
+    livros[index] = { id, titulo, autor, ano };
+    res.json(livros[index]);
 });
 
-// 5. Criar primeiro endpoint
-app.get('/', (req, res) => {
-    res.json({
-        mensagem: '🎉 Minha primeira API funcionando!',
-        status: 'sucesso',
-        timestamp: new Date().toISOString()
-    });
+// DELETE - Remover livro
+app.delete('/livros/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = livros.findIndex(l => l.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({ erro: "Livro não encontrado para exclusão" });
+    }
+
+    livros.splice(index, 1);
+    res.status(204).send(); // 204 No Content é o correto para Delete
 });
 
-// 6. Endpoint de informações
+// Info do sistema
 app.get('/info', (req, res) => {
     res.json({
-        nome: 'Minha API REST',
-        versao: '1.0.0',
-        autor: 'Seu Nome'
+        projeto: "API REST de Livros - Trabalho 2",
+        estudante: "João Vitor Ribeiro",
+        status: "CRUD 100% Funcional"
     });
 });
 
-// 7. Iniciar servidor
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
 });

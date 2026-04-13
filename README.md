@@ -106,7 +106,7 @@ Caso alguma dessas validações falhe, a API retorna um erro com status 400.
 
 Exemplo de criação de um livro com dados válidos:
 
-![POST Sucesso](images/requisicao_correta.png)
+![POST Sucesso](./images/requisicao_correta.png)
 
 ---
 
@@ -114,7 +114,7 @@ Exemplo de criação de um livro com dados válidos:
 
 Exemplo de erro ao enviar dados inválidos (validação):
 
-![POST Erro](images/Erro_validação_ANO.png)
+![POST Erro](./images/erro_validacao.png)
 
 
 ## Testes no Postman
